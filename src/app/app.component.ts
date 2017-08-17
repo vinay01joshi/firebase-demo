@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AngularFireDatabase} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
@@ -8,7 +8,7 @@ import { Subscription } from "rxjs/Subscription";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  courses$;
+  courses$:FirebaseListObservable<any[]>;
   course$;
   author$;
   constructor(db:AngularFireDatabase){
@@ -16,5 +16,18 @@ export class AppComponent {
     this.course$ = db.object('/courses/1');
     this.author$ = db.object('/authors/1');
   }
-
+  add(course : HTMLInputElement){
+    this.courses$.push({
+      name:course.value,
+      price:150,
+      isLive:true,
+      sections:[
+        {title:'Components'},
+        {title:'Directive'},
+        {title:'Templates'},
+        {title:'Pipe'},
+      ]
+    })
+    course.value = '';
+  }
 }
