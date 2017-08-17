@@ -44,4 +44,12 @@ export class AppComponent {
           isLive: true
       });
   }
+
+  delete(course){
+    console.log(course.$key)
+    this.db.object('/courses/'+ course.$key)
+      .remove()
+      .then(x=> console.log("Deleted"))
+      .catch(x=>console.log("Error"));
+  }
 }
