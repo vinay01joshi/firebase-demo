@@ -4,7 +4,8 @@
 
 <ul>
   <li *ngFor="let course of courses$ | async">
-      {{ course.$value || course.name }}
+      {{ course.$value || course.title }}
+      <button (click)="update(course)">Update</button>
   </li>
 </ul>
 
