@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { AngularFireDatabase} from 'angularfire2/database';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  courses$;
+  course$;
+  author$;
+  constructor(db:AngularFireDatabase){
+    this.courses$ = db.list('/courses');
+    this.course$ = db.object('/courses/1');
+    this.author$ = db.object('/authors/1');
+  }
+
 }
